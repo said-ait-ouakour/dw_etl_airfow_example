@@ -1,0 +1,5 @@
+FROM mysql/mysql-server
+ENV MYSQL_DATABASE=DB \
+    MYSQL_ROOT_PASSWORD=password \
+    MYSQL_ROOT_HOST=%
+EXPOSE 3306

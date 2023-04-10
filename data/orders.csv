@@ -1,0 +1,11 @@
+order_id,customer_id,order_date,order_status,shipping_address,billing_address
+1,1001,2022-01-01,shipped,123 Main St,123 Main St
+2,1002,2022-01-02,shipped,456 Oak St,456 Oak St
+3,1003,2022-01-03,delivered,789 Pine St,789 Pine St
+4,1004,2022-01-04,delivered,246 Elm St,246 Elm St
+5,1005,2022-01-05,shipped,135 Maple St,135 Maple St
+6,1001,2022-01-06,delivered,123 Main St,123 Main St
+7,1002,2022-01-07,shipped,456 Oak St,456 Oak St
+8,1003,2022-01-08,shipped,789 Pine St,789 Pine St
+9,1004,2022-01-09,delivered,246 Elm St,246 Elm St
+10,1005,2022-01-10,shipped,135 Maple St,135 Maple St

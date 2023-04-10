@@ -1,0 +1,5 @@
+product_id,product_name,product_description,product_category,product_brand,product_price,product_quantity
+10001,Widget A,A small widget,A,Widget Co.,10.99,100
+10002,Widget B,A medium widget,A,Widget Co.,19.99,75
+10003,Widget C,A large widget,A,Widget Co.,7.99,200
+10004,Widget D,A super widget,B,SuperWidget Co.,24.99,50

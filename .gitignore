@@ -1,0 +1,6 @@
+airflow-webserver.pid
+airflow.cfg
+airflow.db
+webserver_config.py
+etl_dw/*
+logs/*

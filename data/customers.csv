@@ -1,0 +1,6 @@
+customer_id,first_name,last_name,email,phone_number,address,city,state,zip_code
+1001,John,Doe,john.doe@example.com,555-123-4567,123 Main St,Anytown,CA,12345
+1002,Jane,Smith,jane.smith@example.com,555-234-5678,456 Oak St,Anycity,CA,23456
+1003,Bob,Johnson,bob.johnson@example.com,555-345-6789,789 Pine St,Anystate,CA,34567
+1004,Susan,Jones,susan.jones@example.com,555-456-7890,246 Elm St,Anycity,CA,45678
+1005,Jim,Williams,jim.williams@example.com,555-567-8901,135 Maple St,Anytown,CA,56789
