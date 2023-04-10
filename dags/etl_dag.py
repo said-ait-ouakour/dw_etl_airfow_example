@@ -6,7 +6,7 @@ from airflow.operators.python_operator import PythonOperator
 from mysql.connector import Connect
 import pandas as pd
 
-
+# Airflow Variables 
 default_args = {
     "owner": "airflow",
     "depends_on_past": False,
@@ -23,9 +23,9 @@ default_args = {
 ''' 
 def extract_customer_data(**kawrgs):
     conn = Connect(
-        host="192.168.43.86",  # your host, usually localhost
+        host="localhost",  # your host, usually localhost
         user="root",  # your username
-        password="said2002",  # password leave it blank if there isn't any
+        password="password",  # password leave it blank if there isn't any
         port="3306",  # port (3306 default)
         db="ecommercedb", # name of the database
     )  
@@ -35,9 +35,9 @@ def extract_customer_data(**kawrgs):
 
 def extract_product_data(**kawrgs):
     conn = Connect(
-        host="192.168.43.86",  # your host, usually localhost
+        host="localhost",  # your host, usually localhost
         user="root",  # your username
-        password="said2002",  # password leave it blank if there isn't any
+        password="password",  # password leave it blank if there isn't any
         port="3306",  # port (3306 default)
         db="ecommercedb", # name of the database
     )  
@@ -46,9 +46,9 @@ def extract_product_data(**kawrgs):
 
 def extract_order_data(**kawrgs):
     conn = Connect(
-        host="192.168.43.86",  # your host, usually localhost
+        host="localhost",  # your host, usually localhost
         user="root",  # your username
-        password="said2002",  # password leave it blank if there isn't any
+        password="password",  # password leave it blank if there isn't any
         port="3306",  # port (3306 default)
         db="ecommercedb", # name of the database
     )  
@@ -163,9 +163,9 @@ def load_customer_data():
     
     try :
         conn = Connect(
-            host="192.168.43.86",  # your host, usually localhost
+            host="localhost",  # your host, usually localhost
             user="root",  # your username
-            password="said2002",  # password leave it blank if there isn't any
+            password="password",  # password leave it blank if there isn't any
             port="3306",  # port (3306 default)
             db="dw_example",
         )  # name of the database
@@ -181,7 +181,7 @@ def load_customer_data():
 
     # sql statement
     sql_into_dim = f"""
-        INSERT IGNORE INTO `customer_dim` (customer_id, full_name, phone_number, email, address)  VALUES(%s, %s, %s, %s, %s)
+        INSERT INTO `customer_dim` (customer_id, full_name, phone_number, email, address)  VALUES(%s, %s, %s, %s, %s)
     """
 
     # insert rows to dimension table
@@ -198,9 +198,9 @@ def load_product_data():
     try :
         
         conn = Connect(
-            host="192.168.43.86",  # your host, usually localhost
+            host="localhost",  # your host, usually localhost
             user="root",  # your username
-            password="said2002",  # password leave it blank if there isn't any
+            password="password",  # password leave it blank if there isn't any
             port="3306",  # port (3306 default)
             db="dw_example",
         )  # name of the database
@@ -216,7 +216,7 @@ def load_product_data():
 
     # sql statement
     sql_into_dim = f"""
-        INSERT IGNORE INTO `product_dim` (product_id, product_name, product_brand, product_category, product_price)  VALUES(%s, %s, %s, %s, %s);
+        INSERT INTO `product_dim` (product_id, product_name, product_brand, product_category, product_price)  VALUES(%s, %s, %s, %s, %s);
     """
 
     # insert rows to dimension table
@@ -233,9 +233,9 @@ def load_order_data():
     try :
         
         conn = Connect(
-            host="192.168.43.86",  # your host, usually localhost
+            host="localhost",  # your host, usually localhost
             user="root",  # your username
-            password="said2002",  # password leave it blank if there isn't any
+            password="password",  # password leave it blank if there isn't any
             port="3306",  # port (3306 default)
             db="dw_example",
         )  # name of the database
@@ -251,7 +251,7 @@ def load_order_data():
 
     # sql statement
     sql_into_dim = f"""
-        INSERT IGNORE INTO `order_dim` (
+        INSERT INTO `order_dim` (
         order_id,
         order_date,
         customer_id,
@@ -275,9 +275,9 @@ def load_date_data():
     try :
         
         conn = Connect(
-            host="192.168.43.86",   # your host, usually localhost
+            host="localhost",   # your host, usually localhost
             user="root",    # your username
-            password="said2002",    # password leave it blank if there isn't any
+            password="password",    # password leave it blank if there isn't any
             port="3306",    # port (3306 default)
             db="dw_example",    # name of the database
         )  
@@ -293,7 +293,7 @@ def load_date_data():
 
     # sql statement
     sql_into_dim = f"""
-        INSERT IGNORE INTO `date_dim`  VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);
+        INSERT INTO `date_dim`  VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);
     """
 
     # insert rows to dimension table
@@ -309,9 +309,9 @@ def load_date_data():
 def create_fact_table():
 
     conn = Connect(
-            host="192.168.43.86",  # your host, usually localhost
+            host="localhost",  # your host, usually localhost
             user="root",  # your username
-            password="said2002",  # password leave it blank if there isn't any
+            password="password",  # password leave it blank if there isn't any
             port="3306",  # port (3306 default)
             db="dw_example",
         )  # name of the database
@@ -324,7 +324,7 @@ def create_fact_table():
             `order_id` INT,
             `product_id` INT,
             `customer_id` INT,
-            `total_amount` DECIMAL(19, 4),
+            `total_amount` DECIMAL(19, 4)
             ) 
             SELECT o.order_date as 'date', 
                     o.order_id, p.product_id, 
@@ -332,20 +332,13 @@ def create_fact_table():
                         FROM order_dim as o
                         JOIN product_dim p ON p.product_id = o.product_id
                         JOIN customer_dim c ON c.customer_id = o.customer_id;
-            
-        ALTER TABLE sales_fact ADD FOREIGN KEY 
-            (`date`) REFERENCES date_dim(`date`); 
-            
-        ALTER TABLE sales_fact ADD FOREIGN KEY 
-            (`order_id`) FOREIGN KEY REFERENCES `order`(`order_id`);
-
-        ALTER TABLE sales_fact ADD FOREIGN KEY 
-            (`product_id`) FOREIGN KEY REFERENCES product_dim(`product_id`);
-
-        ALTER TABLE sales_fact ADD FOREIGN KEY 
-            (`customer_id`) FOREIGN KEY REFERENCES customer_dim(`customer_id`);
         ''' 
+
     cur.execute(sql)
+
+    cur.execute('ALTER TABLE sales_fact ADD FOREIGN KEY (`date`) REFERENCES date_dim(`date`);')
+    cur.execute('ALTER TABLE sales_fact ADD FOREIGN KEY (`customer_id`) REFERENCES customer_dim(`customer_id`);')
+    cur.execute('ALTER TABLE sales_fact ADD FOREIGN KEY (`product_id`) REFERENCES product_dim(`product_id`);')
 
     conn.commit()
     
