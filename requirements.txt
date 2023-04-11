@@ -1,0 +1,4 @@
+airflow-apache
+airflow-apache[mysql]
+pandas
+mysql-connector-python
